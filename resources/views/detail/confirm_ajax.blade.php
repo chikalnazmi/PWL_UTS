@@ -1,4 +1,4 @@
-@empty($level)
+@empty($detail)
     <div id="modal-master" class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -11,18 +11,18 @@
                     <h5><i class="icon fas fa-ban"></i> Kesalahan!!!</h5>
                     Data yang anda cari tidak ditemukan
                 </div>
-                <a href="{{ url('/level') }}" class="btn btn-warning">Kembali</a>
+                <a href="{{ url('/detail') }}" class="btn btn-warning">Kembali</a>
             </div>
         </div>
     </div>
 @else
-    <form action="{{ url('/level/' . $level->level_id . '/delete_ajax') }}" method="POST" id="form-delete">
+    <form action="{{ url('/detail/' . $detail->detail_id . '/delete_ajax') }}" method="POST" id="form-delete">
         @csrf
         @method('DELETE')
         <div id="modal-master" class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Hapus Data level</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Hapus Data Detail Penjualan</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
                 </div>
@@ -33,12 +33,20 @@
                     </div>
                     <table class="table table-sm table-bordered table-striped">
                         <tr>
-                            <th class="text-right col-3">Kode :</th>
-                            <td class="col-9">{{ $level->level_kode }}</td>
+                            <th class="text-right col-3">Penjualan ID :</th>
+                            <td class="col-9">{{ $detail->penjualan->penjualan_id }}</td>
                         </tr>
                         <tr>
-                            <th class="text-right col-3">Nama :</th>
-                            <td class="col-9">{{ $level->level_nama }}</td>
+                            <th class="text-right col-3">Nama Barang :</th>
+                            <td class="col-9">{{ $detail->barang->barang_nama }}</td>
+                        </tr>
+                        <tr>
+                            <th class="text-right col-3">Harga :</th>
+                            <td class="col-9">{{ $detail->harga }}</td>
+                        </tr>
+                        <tr>
+                            <th class="text-right col-3">Jumlah :</th>
+                            <td class="col-9">{{ $detail->jumlah }}</td>
                         </tr>
                     </table>
                 </div>
@@ -66,7 +74,7 @@
                                     title: 'Berhasil',
                                     text: response.message
                                 });
-                                dataKategori.ajax.reload();
+                                tableDetail.ajax.reload();
                             } else {
                                 $('.error-text').text('');
                                 $.each(response.msgField, function(prefix, val) {

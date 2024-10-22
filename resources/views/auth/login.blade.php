@@ -19,7 +19,7 @@ ack">
     <link rel="stylesheet" href="{{ asset('adminlte/dist/css/adminlte.min.css') }}">
     <style>
         body {
-            background-image: url('/images/login-background.jpg');
+            background-image: url('/image/login-background.jpg');
             background-size: cover;
             background-position: center;
             background-blend-mode: overlay;

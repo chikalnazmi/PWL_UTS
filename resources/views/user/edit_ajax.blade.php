@@ -17,7 +17,7 @@
     </div>
 </div>
 @else
-<form action="{{ url('/user/' . $user->user_id . '/update_ajax') }}" method="POST" id="formedit">
+<form action="{{ url('/user/' . $user->user_id . '/update_ajax') }}" method="POST" id="formedit" enctype="multipart/form-data">
     @csrf
     @method('PUT')
     <div id="modal-master" class="modal-dialog modal-lg" role="document">
@@ -75,14 +75,20 @@ $(document).ready(function() {
             level_id: { required: true, number: true },
             username: { required: true, minlength: 3, maxlength: 20 },
             nama: { required: true, minlength: 3, maxlength: 100 },
-            user_profile: { accept: "png.jpeg.jpg"}
+            user_profile: { extension: "png|jpeg|jpg"},
             password: { minlength: 6, maxlength: 20 }
         },
-        submitHandler: function(form) {
+        submitHandler: function (form) {
+            var formData = new FormData(form);
+            var user_profile = $('#user_profile').prop('files')[0];
+            formData.append('user_profile',user_profile);
+            
             $.ajax({
                 url: form.action,
                 type: form.method,
-                data: $(form).serialize(),
+                data: formData,
+                contentType:false,
+                processData:false,
                 success: function(response) {
                     if (response.status) {
                         $('#myModal').modal('hide');

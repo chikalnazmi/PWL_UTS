@@ -40,7 +40,7 @@
         /* Hero Section */
         .hero {
         
-            background-image: url('/images/hero-banner.jpg');
+            background-image: url('dist/img/hero_banner.jpg');
             background-size: cover;
             background-position: center;
             height: 100vh;
@@ -136,15 +136,11 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
-            <a class="navbar-brand" href="#">Fresh Blooms</a>
+            <a class="navbar-brand" href="#">Fresh Blooms </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">Login</a></li>
-                </ul>
-            </div>
+            
         </div>
     </nav>
 
@@ -168,15 +164,16 @@
             </div>
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="dist/img/prod-1.jpg" class="d-block w-100" alt="Gallery Image 1">
+                    <img src="image/produk-4.jpg" class="d-block w-50 mx-auto" alt="Gallery Image 1">
                 </div>
                 <div class="carousel-item">
-                    <img src="public/dist/img/prod-2.jpg" class="d-block w-100" alt="Gallery Image 2">
+                    <img src="image/produk-2.jpg" class="d-block w-50 mx-auto" alt="Gallery Image 2">
                 </div>
                 <div class="carousel-item">
-                    <img src="public/dist/img/prod-3.jpg" class="d-block w-100" alt="Gallery Image 3">
+                    <img src="image/produk-3.jpg" class="d-block w-50 mx-auto" alt="Gallery Image 3">
                 </div>
             </div>
+
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Previous</span>

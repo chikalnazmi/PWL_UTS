@@ -1,21 +1,42 @@
-<form action="{{ url('/level/ajax') }}" method="POST" id="form-tambah">
+<form action="{{ url('/detail/ajax') }}" method="POST" id="form-tambah">
     @csrf
     <div id="modal-master" class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Tambah Data level</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h5 class="modal-title" id="exampleModalLabel">Tambah Data Detail Penjualan</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <label>Kode</label>
-                    <input value="" type="text" name="level_kode" id="level_kode" class="form-control" required>
-                    <small id="error-level_kode" class="error-text form-text text-danger"></small>
+                    <label>Kode Penjualan</label>
+                    <select class="form-control" id="penjualan_id" name="penjualan_id" required>
+                        <option value="">- Pilih penjualan -</option>
+                        @foreach ($penjualan as $a)
+                            <option value="{{ $a->penjualan_id }}">{{ $a->penjualan_kode }}</option>
+                        @endforeach
+                    </select>
+                    <small id="error-penjualan_id" class="error-text form-text text-danger"></small>
                 </div>
                 <div class="form-group">
-                    <label>Nama</label>
-                    <input value="" type="text" name="level_nama" id="level_nama" class="form-control" required>
-                    <small id="error-level_nama" class="error-text form-text text-danger"></small>
+                    <label>Barang</label>
+                    <select class="form-control" id="barang_id" name="barang_id" required>
+                        <option value="">- Pilih barang -</option>
+                        @foreach ($barang as $b)
+                            <option value="{{ $b->barang_id }}">{{ $b->barang_nama }}</option>
+                        @endforeach
+                    </select>
+                    <small id="error-barang_id" class="error-text form-text text-danger"></small>
+                </div>
+                <div class="form-group">
+                    <label>Harga</label>
+                    <input value="" type="text" name="harga" id="harga" class="form-control" required>
+                    <small id="error-harga" class="error-text form-text text-danger"></small>
+                </div>
+                <div class="form-group">
+                    <label>Jumlah</label>
+                    <input value="" type="text" name="jumlah" id="jumlah" class="form-control" required>
+                    <small id="error-jumlah" class="error-text form-text text-danger"></small>
                 </div>
             </div>
             <div class="modal-footer">
@@ -29,15 +50,23 @@
     $(document).ready(function() {
         $("#form-tambah").validate({
             rules: {
-                level_kode: {
+                penjualan_id: {
                     required: true,
-                    minlength: 3,
-                    maxlength: 20
+                    number: true
                 },
-                level_nama: {
+                barang_id: {
                     required: true,
-                    minlength: 3,
-                    maxlength: 100
+                    number: true
+                },
+                harga: {
+                    required: true,
+                    number: true,
+                    minlength: 3
+                },
+                jumlah: {
+                    required: true,
+                    number: true,
+                    minlength: 1,
                 }
             },
             submitHandler: function(form) {
@@ -53,7 +82,7 @@
                                 title: 'Berhasil',
                                 text: response.message
                             });
-                            dataKategori.ajax.reload();
+                            tableDetail.ajax.reload();
                         } else {
                             $('.error-text').text('');
                             $.each(response.msgField, function(prefix, val) {

@@ -1,4 +1,4 @@
-@empty($level)
+@empty($stok)
     <div id="modal-master" class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -11,7 +11,7 @@
                     <h5><i class="icon fas fa-ban"></i> Kesalahan!!!</h5>
                     Data yang anda cari tidak ditemukan
                 </div>
-                <a href="{{ url('/level') }}" class="btn btn-warning">Kembali</a>
+                <a href="{{ url('/stok') }}" class="btn btn-warning">Kembali</a>
             </div>
         </div>
     </div>
@@ -19,7 +19,7 @@
     <div id="modal-master" class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Detail Data Kategori</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Detail Data stok</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true">&times;</span></button>
             </div>
@@ -27,15 +27,27 @@
                 <table class="table table-sm table-bordered table-striped">
                     <tr>
                         <th class="text-right col-3">ID</th>
-                        <td class="col-9">{{ $level->level_id }}</td>
+                        <td class="col-9">{{ $stok->stok_id }}</td>
                     </tr>
                     <tr>
-                        <th class="text-right col-3">Kategori Kode </th>
-                        <td class="col-9">{{ $level->level_kode }}</td>
+                        <th class="text-right col-3">Barang</th>
+                        <td class="col-9">{{ $stok->barang->barang_nama }}</td>
                     </tr>
                     <tr>
-                        <th class="text-right col-3">Kategori Nama</th>
-                        <td class="col-9">{{ $level->level_nama }}</td>
+                        <th class="text-right col-3">Supplier </th>
+                        <td class="col-9">{{ $stok->supplier->supplier_nama }}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-right col-3">User</th>
+                        <td class="col-9">{{ $stok->user->nama }}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-right col-3">Jumlah Stok </th>
+                        <td class="col-9">{{ $stok->stok_jumlah }}</td>
+                    </tr>
+                    <tr>
+                        <th class="text-right col-3">Tanggal Stok </th>
+                        <td class="col-9">{{ $stok->stok_tanggal }}</td>
                     </tr>
                     </table>
             </div>

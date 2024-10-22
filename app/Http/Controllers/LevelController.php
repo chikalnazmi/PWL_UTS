@@ -32,17 +32,17 @@ class LevelController extends Controller
     }
     public function list(Request $request)
     {
-        $levels = LevelModel::select('level_id', 'level_kode', 'level_nama');
-
-        return DataTables::of($levels)
-            ->addIndexColumn() // Menambahkan kolom index / no urut (default nama kolom: DT_RowIndex)
-            ->addColumn('aksi', function ($level) { // Menambahkan kolom aksi
-                $btn = '<button onclick="modalAction(\''.url('/barang/' . $level->level_id. '/show_ajax').'\')" class="btn btn-info btn-sm">Detail</button> ';
-                $btn .= '<button onclick="modalAction(\''.url('/level/' . $level->level_id . '/edit_ajax').'\')" class="btn btn-warning btn-sm">Edit</button> ';
-                $btn .= '<button onclick="modalAction(\''.url('/level/' . $level->level_id . '/delete_ajax').'\')" class="btn btn-danger btn-sm">Hapus</button> ';
+        $level = LevelModel::select('level_id', 'level_kode', 'level_nama');
+        return DataTables::of($level)
+            ->addIndexColumn() // menambahkan kolom index / no urut (default nama kolom: DT_RowIndex) 
+            ->addColumn('aksi', function ($level) { // menambahkan kolom aksi
+                $btn = '<button onclick="modalAction(\''.url('/level/' . $level->level_id. '/show_ajax').'\')" class="btn btn-info btn-sm">Detail</button> ';
+                $btn .= '<button onclick="modalAction(\'' . url('/level/' . $level->level_id . '/edit_ajax') . '\')" class="btn btn-warning btn-sm">Edit</button> ';
+                $btn .= '<button onclick="modalAction(\'' . url('/level/' . $level->level_id . '/delete_ajax') . '\')" class="btn btn-danger btn-sm">Hapus</button> ';
                 return $btn;
             })
-            ->rawColumns(['aksi']) // Memberitahu bahwa kolom aksi adalah HTML
+            ->rawColumns(['aksi']) // memberitahu bahwa kolom aksi adalah html
+            ->rawColumns(['aksi']) // memberitahu bahwa kolom aksi adalah html 
             ->make(true);
     }
     public function create()
@@ -135,6 +135,13 @@ class LevelController extends Controller
             return redirect('/level')->with('error', 'Data level gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
         }
     }
+
+    public function show_ajax(string $id)
+    {
+        $level = LevelModel::find($id);
+
+        return view('level.show_ajax', ['level' => $level]);
+    }
     
     public function create_ajax()
     {
@@ -143,51 +150,32 @@ class LevelController extends Controller
         return view('level.create_ajax')
             ->with('level', $level);
     }
-
-    public function store_ajax(Request $request) {
-        // Cek apakah request berupa ajax
+    public function store_ajax(Request $request)
+    {
+        // cek apakah request berupa ajax
         if ($request->ajax() || $request->wantsJson()) {
-            // Aturan validasi
             $rules = [
-                'level_kode' => 'required|string|max:10',
-                'level_nama' => 'required|string|max:100'
+                'level_kode'    => 'required|string|max:10|unique:m_level,level_kode',
+                'level_nama'    => 'required|string|max:100',
             ];
-    
-            // Validasi data
+            // use Illuminate\Support\Facades\Validator;
             $validator = Validator::make($request->all(), $rules);
-    
             if ($validator->fails()) {
                 return response()->json([
-                    'success' => false,
-                    'message' => 'Validasi Gagal',
-                    'msgField' => $validator->errors(),
+                    'status'    => false, // response status, false: error/gagal, true: berhasil
+                    'message'   => 'Validasi Gagal',
+                    'msgField'  => $validator->errors(), // pesan error validasi
                 ]);
             }
-    
-            try {
-                // Buat data baru
-                LevelModel::create($request->only(['level_kode', 'level_nama']));
-    
-                // Mengembalikan tampilan create_ajax setelah data disimpan
-                return response()->json([
-                    'success' => true,
-                    'message' => 'Data level berhasil disimpan',
-                    'view' => view('create_ajax')->render() // Mengembalikan tampilan
-                ]);
-            } catch (\Exception $e) {
-                // Tangani kesalahan jika terjadi saat penyimpanan
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Gagal menyimpan data: ' . $e->getMessage()
-                ]);
-            }
+            LevelModel::create($request->all());
+            return response()->json([
+                'status'    => true,
+                'message'   => 'Data level berhasil disimpan'
+            ]);
         }
-    
-        return response()->json([
-            'success' => false,
-            'message' => 'Request tidak valid'
-        ]);
+        redirect('/');
     }
+
     
     
 

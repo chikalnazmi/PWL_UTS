@@ -1,21 +1,40 @@
-<form action="{{ url('/level/ajax') }}" method="POST" id="form-tambah">
+<form action="{{ url('/penjualan/ajax') }}" method="POST" id="form-tambah">
     @csrf
     <div id="modal-master" class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Tambah Data level</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h5 class="modal-title" id="exampleModalLabel">Tambah Data Penjualan</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <label>Kode</label>
-                    <input value="" type="text" name="level_kode" id="level_kode" class="form-control" required>
-                    <small id="error-level_kode" class="error-text form-text text-danger"></small>
+                    <label>User</label>
+                    <select class="form-control" id="user_id" name="user_id" required>
+                        <option value="">- Pilih user -</option>
+                        @foreach ($user as $c)
+                            <option value="{{ $c->user_id }}">{{ $c->username }}</option>
+                        @endforeach
+                    </select>
+                    <small id="error-user_id" class="error-text form-text text-danger"></small>
                 </div>
                 <div class="form-group">
-                    <label>Nama</label>
-                    <input value="" type="text" name="level_nama" id="level_nama" class="form-control" required>
-                    <small id="error-level_nama" class="error-text form-text text-danger"></small>
+                    <label>Nama Pembeli</label>
+                    <input value="" type="text" name="pembeli" id="pembeli" class="form-control"
+                        required>
+                    <small id="error-pembeli" class="error-text form-text text-danger"></small>
+                </div>
+                <div class="form-group">
+                    <label>Kode Penjualan</label>
+                    <input value="" type="text" name="penjualan_kode" id="penjualan_kode" class="form-control"
+                        required>
+                    <small id="error-penjualan_kode" class="error-text form-text text-danger"></small>
+                </div>
+                <div class="form-group">
+                    <label>Tanggal Penjualan</label>
+                    <input value="" type="date" name="penjualan_tanggal" id="penjualan_tanggal" class="form-control"
+                        required>
+                    <small id="error-penjualan_tanggal" class="error-text form-text text-danger"></small>
                 </div>
             </div>
             <div class="modal-footer">
@@ -29,15 +48,21 @@
     $(document).ready(function() {
         $("#form-tambah").validate({
             rules: {
-                level_kode: {
+                user_id: {
                     required: true,
-                    minlength: 3,
-                    maxlength: 20
+                    number: true
                 },
-                level_nama: {
+                pembeli: {
                     required: true,
-                    minlength: 3,
-                    maxlength: 100
+                    minlength: 3
+                },
+                penjualan_kode: {
+                    required: true,
+                    minlength: 3
+                },
+                penjualan_tanggal: {
+                    required: true,
+                    minlength: 3
                 }
             },
             submitHandler: function(form) {
@@ -53,7 +78,7 @@
                                 title: 'Berhasil',
                                 text: response.message
                             });
-                            dataKategori.ajax.reload();
+                            tablePenjualan.ajax.reload();
                         } else {
                             $('.error-text').text('');
                             $.each(response.msgField, function(prefix, val) {

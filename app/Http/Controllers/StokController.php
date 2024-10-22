@@ -170,51 +170,59 @@ class StokController extends Controller
 
     // Menyimpan perubahan data stok
     public function update(Request $request, string $id)
-{
-    $request->validate([
-        'stok_tanggal' => 'required|string|max:10',
-        'stok_jumlah' => 'required|string|max:100',
-        'fk_supplier_id' => 'required|integer',
-        'fk_barang_id' => 'required|integer',
-        'fk_user_id' => 'required|integer'
-    ]);
-
-    // Update data stok
-    $stok = StokModel::find($id);
-    if (!$stok) {
-        return redirect('/stok')->with('error', 'Data stok tidak ditemukan');
-    }
-
-    $stok->update([
-        'stok_tanggal' => $request->stok_tanggal,
-        'stok_jumlah' => $request->stok_jumlah,
-        'fk_supplier_id' => $request->fk_supplier_id,
-        'fk_barang_id' => $request->fk_barang_id,
-        'fk_user_id' => $request->fk_user_id
-    ]);
-
-    return redirect('/stok')->with('success', 'Data stok berhasil diubah');
-    }
-
-    // Menghapus data stok
-    public function destroy(string $id)
     {
-        $check = StokModel::find($id);
+        $request->validate([
+            'stok_tanggal' => 'required|string|max:10',
+            'stok_jumlah' => 'required|string|max:100',
+            'fk_supplier_id' => 'required|integer',
+            'fk_barang_id' => 'required|integer',
+            'fk_user_id' => 'required|integer'
+        ]);
 
-        if (!$check) {
-            // untuk mengecek apakah data stok dengan id yang dimaksud ada atau tidak
+        // Update data stok
+        $stok = StokModel::find($id);
+        if (!$stok) {
             return redirect('/stok')->with('error', 'Data stok tidak ditemukan');
         }
 
-        try {
-            StokModel::destroy($id); // Hapus data supplier
+        $stok->update([
+            'stok_tanggal' => $request->stok_tanggal,
+            'stok_jumlah' => $request->stok_jumlah,
+            'fk_supplier_id' => $request->fk_supplier_id,
+            'fk_barang_id' => $request->fk_barang_id,
+            'fk_user_id' => $request->fk_user_id
+        ]);
 
-            return redirect('/stok')->with('success', 'Data stok berhasil dihapus');
-        } catch (\Illuminate\Database\QueryException $e) {
-            // Jika terjadi error ketika menghapus data, redirect kembali ke halaman dengan membawa pesan error
-            return redirect('/stok')->with('error', 'Data stok gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
+        return redirect('/stok')->with('success', 'Data stok berhasil diubah');
         }
-    }
+
+        // Menghapus data stok
+        public function destroy(string $id)
+        {
+            $check = StokModel::find($id);
+
+            if (!$check) {
+                // untuk mengecek apakah data stok dengan id yang dimaksud ada atau tidak
+                return redirect('/stok')->with('error', 'Data stok tidak ditemukan');
+            }
+
+            try {
+                StokModel::destroy($id); // Hapus data supplier
+
+                return redirect('/stok')->with('success', 'Data stok berhasil dihapus');
+            } catch (\Illuminate\Database\QueryException $e) {
+                // Jika terjadi error ketika menghapus data, redirect kembali ke halaman dengan membawa pesan error
+                return redirect('/stok')->with('error', 'Data stok gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
+            }
+        }
+
+        public function show_ajax(string $id)
+        {
+            $stok = StokModel::with(['user', 'supplier', 'barang'])->find($id);
+         
+            return view('stok.show_ajax', ['stok' => $stok]);
+        }
+        
     public function create_ajax()
     {
         $supplier = SupplierModel::select('supplier_id', 'supplier_nama')->get();
@@ -279,8 +287,8 @@ class StokController extends Controller
         if ($request->ajax() || $request->wantsJson()) {
             $rules = [
                 'fk_supplier_id'   => 'required|integer', // Menggunakan fk_supplier_id
-                'stok_tanggal'      => 'required|string|max:10',
-                'stok_jumlah'      => 'required|string|max:100', 
+                'stok_tanggal'      => 'nullable|string|max:10',
+                'stok_jumlah'      => 'nullable|string|max:100', 
                 'fk_user_id'       => 'required|integer',
                 'fk_barang_id'       => 'required|integer',
             ];
@@ -401,21 +409,21 @@ class StokController extends Controller
         $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet(); // ambil sheet yang aktif
         $sheet->setCellValue('A1', 'No');
-        $sheet->setCellValue('B1', 'Kode stok');
-        $sheet->setCellValue('C1', 'Nama stok');
-        $sheet->setCellValue('D1', 'Harga Bel');
-        $sheet->setCellValue('E1', 'Barang');
-        $sheet->setCellValue('F1', 'Supplier');
+        $sheet->setCellValue('B1', 'Nama Barang');
+        $sheet->setCellValue('C1', 'Supplier');
+        $sheet->setCellValue('D1', 'User');
+        $sheet->setCellValue('E1', 'Jumlah Stok');
+        $sheet->setCellValue('F1', 'Tanggal Stok');
         $sheet->getStyle('A1:F1')->getFont()->setBold(true); // bold header
         $no = 1; // nomor data dimulai dari 1
         $baris = 2; // baris data dimulai dari baris ke 2
         foreach ($stok as $key => $value) {
             $sheet->setCellValue('A' . $baris, $no);
-            $sheet->setCellValue('B' . $baris, $value->stok_tanggal);
-            $sheet->setCellValue('C' . $baris, $value->stok_jumlah);
-            $sheet->setCellValue('D' . $baris, $value->fk_user_id);
-            $sheet->setCellValue('E' . $baris, $value->fk_barang_id);
-            $sheet->setCellValue('F' . $baris, $value->supplier->supplier_nama); // ambil nama supplier
+            $sheet->setCellValue('B' . $baris, $value->barang->barang_nama);
+            $sheet->setCellValue('C' . $baris, $value->supplier->supplier_nama);
+            $sheet->setCellValue('D' . $baris, $value->user->nama);
+            $sheet->setCellValue('E' . $baris, $value->stok_jumlah);
+            $sheet->setCellValue('F' . $baris, $value->stok_tanggal); // ambil nama supplier
             $baris++;
             $no++;
         }

@@ -15,42 +15,42 @@
         <!-- Filter Data -->
         <div id="filter" class="form-horizontal filter-date p-2 border-bottom mb-2">
             <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group form-group-sm row text-sm mb-0">
-                        <label for="filter" class="col-md-1 col-form-label">Filter</label>
+                <!-- Filter Supplier -->
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="supplier_id">Supplier</label>
+                        <select class="form-control filter_supplier" id="supplier_id" name="supplier_id">
+                            <option value="">- Semua -</option>
+                            @foreach($supplier as $item)
+                                <option value="{{ $item->supplier_id }}">{{ $item->supplier_nama }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
 
-                        <!-- Filter Supplier -->
-                        <div class="col-md-3">
-                            <select name="filter_supplier" class="form-control form-control-sm filter_supplier">
-                                <option value="">- Semua Supplier -</option>
-                                @foreach($supplier as $s)
-                                    <option value="{{ $s->supplier_id }}">{{ $s->supplier_nama }}</option>
-                                @endforeach
-                            </select>
-                            <small class="form-text text-muted">Supplier Barang</small>
-                        </div>
+                <!-- Filter User -->
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="user_id">User</label>
+                        <select class="form-control filter_user" id="user_id" name="user_id">
+                            <option value="">- Semua -</option>
+                            @foreach($user as $item)
+                                <option value="{{ $item->user_id }}">{{ $item->nama }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
 
-                        <!-- Filter User -->
-                        <div class="col-md-3">
-                            <select name="filter_user" class="form-control form-control-sm filter_user">
-                                <option value="">- Semua User -</option>
-                                @foreach($user as $u)
-                                    <option value="{{ $u->id }}">{{ $u->nama }}</option>
-                                @endforeach
-                            </select>
-                            <small class="form-text text-muted">User</small>
-                        </div>
-
-                        <!-- Filter Barang -->
-                        <div class="col-md-3">
-                            <select name="filter_barang" class="form-control form-control-sm filter_barang">
-                                <option value="">- Semua Barang -</option>
-                                @foreach($barang as $b)
-                                    <option value="{{ $b->barang_id }}">{{ $b->barang_nama }}</option>
-                                @endforeach
-                            </select>
-                            <small class="form-text text-muted">Barang</small>
-                        </div>
+                <!-- Filter Barang -->
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="barang_id">Barang</label>
+                        <select class="form-control filter_barang" id="barang_id" name="barang_id">
+                            <option value="">- Semua -</option>
+                            @foreach($barang as $item)
+                                <option value="{{ $item->barang_id }}">{{ $item->barang_nama }}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
             </div>
@@ -106,9 +106,9 @@
                 dataType: "json",
                 type: "POST",
                 data: function(d) {
-                    d.filter_supplier = $('.filter_supplier').val();
-                    d.filter_user = $('.filter_user').val();
-                    d.filter_barang = $('.filter_barang').val();
+                    d.filter_supplier = $('#supplier_id').val();
+                    d.filter_user = $('#user_id').val();
+                    d.filter_barang = $('#barang_id').val();
                 }
             },
             columns: [
@@ -155,13 +155,6 @@
                     searchable: false
                 } 
             ]
-        });
-
-        // Pencarian DataTables dengan tombol Enter
-        $('#table-stok_filter input').unbind().bind().on('keyup', function(e) {
-            if (e.keyCode == 13) { // Enter
-                tableStok.search(this.value).draw();
-            }
         });
 
         // Filter supplier, user, dan barang
