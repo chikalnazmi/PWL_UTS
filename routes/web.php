@@ -51,13 +51,15 @@ Route::get('logout', [AuthController::class, 'logout'])->middleware('auth');
 Route::middleware(['auth'])->group(function() {
     Route::get('/', [WelcomeController::class, 'index']);
 
-    Route::middleware(['authorize:ADM,MNG,STF,CUS'])->group(function(){
-        Route::get('/profile', [ProfileController::class, 'index']);
-        Route::get('/profile/{id}/edit_ajax', [ProfileController::class, 'edit_ajax']);
-        Route::put('/profile/{id}/update_ajax', [ProfileController::class, 'update_ajax']);
-        Route::get('/profile/{id}/edit_foto', [ProfileController::class, 'edit_foto']);
-        Route::put('/profile/{id}/update_foto', [ProfileController::class, 'update_foto']);
+    Route::group(['prefix' => 'profile'], function () {
+        Route::get('/', [ProfileController::class, 'index']); // Menampilkan halaman profil
+        Route::get('/{id}/edit_ajax', [ProfileController::class, 'edit_ajax']); // Menampilkan form edit data (via AJAX)
+        Route::post('/{id}/update_ajax', [ProfileController::class, 'update_ajax']); // Memperbarui data profil (via AJAX)
+        Route::get('/{id}/edit_foto', [ProfileController::class, 'edit_foto']); // Menampilkan form edit foto
+        Route::put('/{id}/update_foto', [ProfileController::class, 'update_foto']); // Memperbarui foto profil
     });
+    
+    
 
     Route::middleware(['authorize:ADM,MNG'])->group(function(){
         Route::group(['prefix' => 'level'], function () {

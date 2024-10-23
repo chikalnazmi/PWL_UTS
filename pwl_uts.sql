@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Sep 25, 2024 at 01:31 AM
+-- Generation Time: Oct 23, 2024 at 08:56 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `pwl_pos`
+-- Database: `pwl_uts`
 --
 
 -- --------------------------------------------------------
@@ -29,11 +29,11 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `failed_jobs` (
   `id` bigint UNSIGNED NOT NULL,
-  `uuid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `uuid` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `connection` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `queue` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payload` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `exception` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -45,7 +45,7 @@ CREATE TABLE `failed_jobs` (
 
 CREATE TABLE `migrations` (
   `id` int UNSIGNED NOT NULL,
-  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `migration` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -64,8 +64,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (8, '2024_09_11_024833_create_m_user_table', 3),
 (9, '2024_09_11_031033_create_m_barang_table', 4),
 (10, '2024_09_11_031924_create_t_penjualan_table', 5),
-(11, '2024_09_11_032145_create_t_stok_table', 5),
-(12, '2024_09_11_035026_create_t_penjualan_detail_table', 6);
+(11, '2024_09_11_032145_create_t_stok_table', 5);
 
 -- --------------------------------------------------------
 
@@ -76,8 +75,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 CREATE TABLE `m_barang` (
   `barang_id` bigint UNSIGNED NOT NULL,
   `fk_kategori_id` bigint UNSIGNED NOT NULL,
-  `barang_kode` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `barang_nama` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `barang_kode` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `barang_nama` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `harga_beli` int NOT NULL,
   `harga_jual` int NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -89,21 +88,31 @@ CREATE TABLE `m_barang` (
 --
 
 INSERT INTO `m_barang` (`barang_id`, `fk_kategori_id`, `barang_kode`, `barang_nama`, `harga_beli`, `harga_jual`, `created_at`, `updated_at`) VALUES
-(101, 1, 'ELE001', 'Laptop Dell Inspiron', 8000000, 8500000, NULL, NULL),
-(102, 1, 'ELE002', 'Headphone Sony WH-1000XM4', 3500000, 4000000, NULL, NULL),
-(103, 1, 'ELE003', 'Smartphone Samsung Galaxy S21', 10000000, 11000000, NULL, NULL),
-(104, 1, 'ELE004', 'Smartwatch Apple Watch Series 7', 6000000, 6500000, NULL, NULL),
-(105, 1, 'ELE005', 'Tablet iPad Pro', 12000000, 12500000, NULL, NULL),
-(106, 2, 'FAS001', 'Jaket Kulit Pria', 750000, 900000, NULL, NULL),
-(107, 2, 'FAS002', 'Sepatu Sneakers Wanita', 500000, 600000, NULL, NULL),
-(108, 2, 'FAS003', 'Tas Ransel Kulit', 400000, 550000, NULL, NULL),
-(109, 2, 'FAS004', 'Celana Chino Pria', 250000, 350000, NULL, NULL),
-(110, 2, 'FAS005', 'Kemeja Flanel Wanita', 200000, 300000, NULL, NULL),
-(111, 3, 'FOOD001', 'Biskuit Gandum', 15000, 25000, NULL, NULL),
-(112, 3, 'FOOD002', 'Keripik Singkong Pedas', 20000, 30000, NULL, NULL),
-(113, 3, 'FOOD003', 'Coklat Batang', 25000, 35000, NULL, NULL),
-(114, 3, 'FOOD004', 'Minuman Teh Botol', 5000, 10000, NULL, NULL),
-(115, 3, 'FOOD005', 'Kacang Goreng', 10000, 20000, NULL, NULL);
+(101, 1, 'ACC001', 'Aurora Charms', 2000000, 2500000, NULL, '2024-10-22 14:22:08'),
+(102, 1, 'ACC002', 'Lunar Grace', 1500000, 1800000, NULL, NULL),
+(103, 1, 'ACC003', 'Ethereal Dream', 500000, 700000, NULL, NULL),
+(104, 1, 'ACC004', 'Mystic Halo', 3000000, 3500000, NULL, NULL),
+(105, 1, 'ACC005', 'Serenity Loop', 250000, 400000, NULL, NULL),
+(106, 2, 'ACC006', 'Celestial Aura', 5000000, 5500000, NULL, NULL),
+(107, 2, 'ACC007', 'Eclipse Jewel', 4500000, 5000000, NULL, NULL),
+(108, 2, 'ACC008', 'Starlight Whisper', 2500000, 3000000, NULL, NULL),
+(109, 2, 'ACC009', 'Twilight Reflection', 3500000, 4000000, NULL, NULL),
+(110, 2, 'ACC010', 'Silver Mirage', 1200000, 1500000, NULL, NULL),
+(111, 3, 'ACC011', 'Ocean Breeze', 1000000, 1500000, NULL, NULL),
+(112, 3, 'ACC012', 'Velvet Horizon', 1200000, 1700000, NULL, NULL),
+(113, 3, 'ACC013', 'Obsidian Glow', 2000000, 2500000, NULL, NULL),
+(114, 3, 'ACC014', 'Crystal Dawn', 500000, 800000, NULL, NULL),
+(115, 3, 'ACC015', 'Jade Harmony', 750000, 1000000, NULL, NULL),
+(116, 4, 'ACC016', 'Solstice Radiance', 7000000, 7500000, NULL, NULL),
+(117, 4, 'ACC017', 'Golden Ember', 3000000, 3500000, NULL, NULL),
+(118, 4, 'ACC018', 'Eternal Flame', 6000000, 6500000, NULL, NULL),
+(119, 4, 'ACC019', 'Sapphire Horizon', 4000000, 4500000, NULL, NULL),
+(120, 4, 'ACC020', 'Moonlit Silver', 1500000, 2000000, NULL, NULL),
+(121, 5, 'ACC021', 'Timeless Elegance', 10000000, 12000000, NULL, NULL),
+(122, 5, 'ACC022', 'Midnight Glow', 1500000, 2000000, NULL, NULL),
+(123, 5, 'ACC023', 'Glimmering Wave', 2500000, 3000000, NULL, NULL),
+(124, 5, 'ACC024', 'Seaside Horizon', 4000000, 4500000, NULL, NULL),
+(127, 5, 'ACC025', 'Golden Swan', 10000, 100000, '2024-10-22 13:47:04', '2024-10-22 13:47:04');
 
 -- --------------------------------------------------------
 
@@ -113,8 +122,8 @@ INSERT INTO `m_barang` (`barang_id`, `fk_kategori_id`, `barang_kode`, `barang_na
 
 CREATE TABLE `m_kategori` (
   `kategori_id` bigint UNSIGNED NOT NULL,
-  `kategori_kode` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `kategori_nama` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `kategori_kode` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `kategori_nama` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -124,11 +133,12 @@ CREATE TABLE `m_kategori` (
 --
 
 INSERT INTO `m_kategori` (`kategori_id`, `kategori_kode`, `kategori_nama`, `created_at`, `updated_at`) VALUES
-(1, 'A001', 'Elektronik', NULL, NULL),
-(2, 'B002', 'Fashion', NULL, NULL),
-(3, 'C003', 'Makanan', NULL, NULL),
-(4, 'D004', 'Buku', NULL, NULL),
-(5, 'E005', 'Olahraga', NULL, NULL);
+(1, 'A001', 'Gelang', NULL, '2024-10-22 13:46:06'),
+(2, 'B002', 'Kalung', NULL, NULL),
+(3, 'C003', 'Anting', NULL, NULL),
+(4, 'D004', 'Cincin', NULL, NULL),
+(5, 'E005', 'Jam Tangan', NULL, NULL),
+(6, 'F006', 'Baju', '2024-10-22 12:47:59', '2024-10-22 12:47:59');
 
 -- --------------------------------------------------------
 
@@ -138,8 +148,8 @@ INSERT INTO `m_kategori` (`kategori_id`, `kategori_kode`, `kategori_nama`, `crea
 
 CREATE TABLE `m_level` (
   `level_id` bigint UNSIGNED NOT NULL,
-  `level_kode` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `level_nama` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `level_kode` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `level_nama` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -149,9 +159,12 @@ CREATE TABLE `m_level` (
 --
 
 INSERT INTO `m_level` (`level_id`, `level_kode`, `level_nama`, `created_at`, `updated_at`) VALUES
-(1, 'ADM', 'Administrator', NULL, NULL),
+(1, 'ADM', 'Administrator', NULL, '2024-10-22 05:23:13'),
 (2, 'MNG', 'Manager', NULL, NULL),
-(3, 'STF', 'Staff/Kasir', NULL, NULL);
+(3, 'STF', 'Staff/Kasir', NULL, NULL),
+(4, 'HRD', 'Human Resource', NULL, NULL),
+(5, 'OWN', 'Owner', NULL, NULL),
+(9, 'KYW', 'Karyawan', '2024-10-22 12:49:58', '2024-10-22 12:49:58');
 
 -- --------------------------------------------------------
 
@@ -161,9 +174,9 @@ INSERT INTO `m_level` (`level_id`, `level_kode`, `level_nama`, `created_at`, `up
 
 CREATE TABLE `m_supplier` (
   `supplier_id` bigint UNSIGNED NOT NULL,
-  `supplier_kode` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `supplier_nama` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `supplier_alamat` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `supplier_kode` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `supplier_nama` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `supplier_alamat` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -173,9 +186,11 @@ CREATE TABLE `m_supplier` (
 --
 
 INSERT INTO `m_supplier` (`supplier_id`, `supplier_kode`, `supplier_nama`, `supplier_alamat`, `created_at`, `updated_at`) VALUES
-(1, 'S001', 'PT Sumber Makmur', 'Jl. Merdeka No. 10, Jakarta', NULL, NULL),
-(2, 'S002', 'CV Elektronik Jaya', 'Jl. Pahlawan No. 23, Bandung', NULL, NULL),
-(3, 'S003', 'UD Maju Terus', 'Jl. Cendana No. 45, Surabaya', NULL, NULL);
+(1, 'S001', 'PT Gelang Indah', 'Jl. Merdeka No. 10, Jakarta', NULL, NULL),
+(2, 'S002', 'CV Kalung Mewah', 'Jl. Pahlawan No. 23, Bandung', NULL, NULL),
+(3, 'S003', 'UD Anting Cantik', 'Jl. Cendana No. 45, Surabaya', NULL, NULL),
+(4, 'S004', 'PT Cincin Gemilang', 'Jl. Sudirman No. 12, Yogyakarta', NULL, NULL),
+(5, 'S005', 'CV Jam Tangan Elegan', 'Jl. Kartini No. 78, Bali', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -186,9 +201,10 @@ INSERT INTO `m_supplier` (`supplier_id`, `supplier_kode`, `supplier_nama`, `supp
 CREATE TABLE `m_user` (
   `user_id` bigint UNSIGNED NOT NULL,
   `level_id` bigint UNSIGNED NOT NULL,
-  `username` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `nama` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `username` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nama` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_profile` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -197,15 +213,12 @@ CREATE TABLE `m_user` (
 -- Dumping data for table `m_user`
 --
 
-INSERT INTO `m_user` (`user_id`, `level_id`, `username`, `nama`, `password`, `created_at`, `updated_at`) VALUES
-(1, 1, 'abecekut', 'abeabe', '$2y$12$MfkyugjfElLlp3FNhuYp/.gPjD.GHokIFuWL6pRVFHkbUtJH2ahcu', NULL, '2024-09-20 08:40:03'),
-(2, 2, 'manager', 'Manager', '$2y$12$2Am7bP7b4xdqD.odcnzRgeevJyTG5nXX5y44jOO2kGXUC4Vp6Hi76', NULL, NULL),
-(3, 3, 'staff', 'Staff/Kasir', '$2y$12$GGp6blmDXFMu5eTtqqdKvO3O15fQp6m.D0f3PE9dJvZLbDhVcfCN2', NULL, NULL),
-(4, 2, 'manager_dua', 'Manager 2', '$2y$12$t8TwFqa9Sd9vFP0FJvXC3.9tj9VoL4pgjcW0WmnUBNk6H28OpinAy', '2024-09-17 18:59:26', '2024-09-17 18:59:26'),
-(6, 2, 'manager22', 'Manager Dua Dua', '$2y$12$2x.EWKqNdmUknT3k0FAkI./4VqV6ap7qy6dxPvlinw0pmDC7MBqdq', '2024-09-19 03:35:11', '2024-09-19 03:35:11'),
-(7, 2, 'manager33', 'Manager Tiga Tiga', '$2y$12$G0o0ESaXT69gpctinQ.b.OuRpCsZtkSES/tgv7WbflIKPbxYS.LQ6', '2024-09-19 03:41:26', '2024-09-19 03:41:26'),
-(19, 2, 'manager56', 'Manager55', '$2y$12$AKaP.r5dejpIZBADL6Si1e9OptPUtTanff121K/o1tQt9arKqQph6', '2024-09-19 06:06:47', '2024-09-19 06:06:47'),
-(22, 2, 'manager11', 'Manager11', '$2y$12$EUB71dOUVnnPN0ts10zJzuXmwNAQUO5rT53tEdQlEeQcb0t2tPU/W', '2024-09-19 06:16:59', '2024-09-19 06:16:59');
+INSERT INTO `m_user` (`user_id`, `level_id`, `username`, `nama`, `password`, `user_profile`, `created_at`, `updated_at`) VALUES
+(1, 1, 'admin', 'Administrator', '$2y$12$lSGcaX5zyThC7OwMSoh0U.LKKgVWEtvZWP1K49oosf/1m0lWu8.mi', 'C:\\laragon\\www\\PWL_UTS\\public\\image/profile/1729668742.jpg', NULL, '2024-10-23 00:32:22'),
+(2, 2, 'manager', 'Manager', '$2y$12$Fk6XuyBjOI37RsU15omN4ume..tmw20PfW/qEVr59zDOeZhQAr4v2', NULL, NULL, NULL),
+(3, 3, 'staff', 'Staff/Kasir', '$2y$12$Uy7ASuVgXVYBAj5g9NZjmOXJPMCp8HCzgsFufcQM1utfL/cYfhtp.', NULL, NULL, NULL),
+(4, 1, 'chikalnazmi', 'Chikal Nazmi Mahira', '$2y$12$9RxVFh4Q2Bl69pTqVOpjeOGYzp5pJmB5TGWbWIhbjveEYBGrCRKEy', NULL, '2024-10-22 05:03:38', '2024-10-22 05:03:38'),
+(5, 1, 'chikalnazzz', 'Chikal Nazmi Mahira', '$2y$12$kIcssgGs.WBSXrw6/C2iQuDwqEIvchiCQUZMIjByHnG1m88F5jaS6', 'C:\\laragon\\www\\PWL_UTS\\public\\image/profile/1729629056.jpg', '2024-10-22 12:47:20', '2024-10-22 13:30:56');
 
 -- --------------------------------------------------------
 
@@ -214,8 +227,8 @@ INSERT INTO `m_user` (`user_id`, `level_id`, `username`, `nama`, `password`, `cr
 --
 
 CREATE TABLE `password_reset_tokens` (
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -227,11 +240,11 @@ CREATE TABLE `password_reset_tokens` (
 
 CREATE TABLE `personal_access_tokens` (
   `id` bigint UNSIGNED NOT NULL,
-  `tokenable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tokenable_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `tokenable_id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `abilities` text COLLATE utf8mb4_unicode_ci,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `abilities` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `last_used_at` timestamp NULL DEFAULT NULL,
   `expires_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -247,8 +260,8 @@ CREATE TABLE `personal_access_tokens` (
 CREATE TABLE `t_penjualan` (
   `penjualan_id` bigint UNSIGNED NOT NULL,
   `fk_user_id` bigint UNSIGNED NOT NULL,
-  `pembeli` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `penjualan_kode` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `pembeli` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `penjualan_kode` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `penjualan_tanggal` datetime NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -259,16 +272,19 @@ CREATE TABLE `t_penjualan` (
 --
 
 INSERT INTO `t_penjualan` (`penjualan_id`, `fk_user_id`, `pembeli`, `penjualan_kode`, `penjualan_tanggal`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Budi Santoso', 'PJ001', '2024-09-14 02:19:56', NULL, NULL),
-(2, 2, 'Siti Nurhaliza', 'PJ002', '2024-09-14 02:19:56', NULL, NULL),
-(3, 3, 'Andi Saputra', 'PJ003', '2024-09-14 02:19:56', NULL, NULL),
-(4, 1, 'Joko Widodo', 'PJ004', '2024-09-14 02:19:56', NULL, NULL),
-(5, 2, 'Lina Susanti', 'PJ005', '2024-09-14 02:19:56', NULL, NULL),
-(6, 3, 'Toni Suryana', 'PJ006', '2024-09-14 02:19:56', NULL, NULL),
-(7, 1, 'Aisyah Putri', 'PJ007', '2024-09-14 02:19:56', NULL, NULL),
-(8, 2, 'Ahmad Dani', 'PJ008', '2024-09-14 02:19:56', NULL, NULL),
-(9, 3, 'Bambang Hartono', 'PJ009', '2024-09-14 02:19:56', NULL, NULL),
-(10, 1, 'Slamet Riyadi', 'PJ010', '2024-09-14 02:19:56', NULL, NULL);
+(1, 1, 'Budi Santoso', 'PJ001', '2024-10-21 15:10:10', NULL, NULL),
+(2, 2, 'Siti Nurhaliza', 'PJ002', '2024-10-21 15:10:10', NULL, NULL),
+(3, 3, 'Andi Saputra', 'PJ003', '2024-10-21 15:10:10', NULL, NULL),
+(4, 1, 'Joko Widodo', 'PJ004', '2024-10-21 15:10:10', NULL, NULL),
+(5, 2, 'Lina Susanti', 'PJ005', '2024-10-21 15:10:10', NULL, NULL),
+(6, 3, 'Toni Suryana', 'PJ006', '2024-10-21 15:10:10', NULL, NULL),
+(7, 1, 'Aisyah Putri', 'PJ007', '2024-10-21 15:10:10', NULL, NULL),
+(8, 2, 'Ahmad Dani', 'PJ008', '2024-10-21 15:10:10', NULL, NULL),
+(9, 3, 'Bambang Hartono', 'PJ009', '2024-10-21 15:10:10', NULL, NULL),
+(10, 1, 'Slamet Riyadi', 'PJ010', '2024-10-21 15:10:10', NULL, NULL),
+(11, 2, 'Ayu Rahayu', 'PJ011', '0000-00-00 00:00:00', '2024-10-22 15:07:50', NULL),
+(12, 3, 'Budi Santoso', 'PJ012', '0000-00-00 00:00:00', '2024-10-22 15:07:50', NULL),
+(13, 1, 'Dewi Sartika', 'PJ013', '0000-00-00 00:00:00', '2024-10-22 15:07:50', NULL);
 
 -- --------------------------------------------------------
 
@@ -344,21 +360,17 @@ CREATE TABLE `t_stok` (
 --
 
 INSERT INTO `t_stok` (`stok_id`, `fk_supplier_id`, `fk_barang_id`, `fk_user_id`, `stok_tanggal`, `stok_jumlah`, `created_at`, `updated_at`) VALUES
-(1, 1, 101, 3, '2024-09-14 02:01:32', 50, NULL, NULL),
-(2, 1, 102, 3, '2024-09-14 02:01:32', 100, NULL, NULL),
-(3, 1, 103, 3, '2024-09-14 02:01:32', 70, NULL, NULL),
-(4, 1, 104, 3, '2024-09-14 02:01:32', 200, NULL, NULL),
-(5, 1, 105, 3, '2024-09-14 02:01:32', 150, NULL, NULL),
-(6, 2, 106, 3, '2024-09-14 02:01:32', 60, NULL, NULL),
-(7, 2, 107, 3, '2024-09-14 02:01:32', 80, NULL, NULL),
-(8, 2, 108, 3, '2024-09-14 02:01:32', 90, NULL, NULL),
-(9, 2, 109, 3, '2024-09-14 02:01:32', 120, NULL, NULL),
-(10, 2, 110, 3, '2024-09-14 02:01:32', 100, NULL, NULL),
-(11, 3, 111, 3, '2024-09-14 02:01:32', 300, NULL, NULL),
-(12, 3, 112, 3, '2024-09-14 02:01:32', 250, NULL, NULL),
-(13, 3, 113, 3, '2024-09-14 02:01:32', 150, NULL, NULL),
-(14, 3, 114, 3, '2024-09-14 02:01:32', 400, NULL, NULL),
-(15, 3, 115, 3, '2024-09-14 02:01:32', 500, NULL, NULL);
+(1, 2, 101, 2, '2024-10-23 00:00:00', 50, NULL, '2024-10-22 14:23:06'),
+(2, 1, 102, 3, '2024-10-21 15:10:37', 100, NULL, NULL),
+(3, 1, 103, 3, '2024-10-21 15:10:37', 70, NULL, NULL),
+(4, 2, 104, 3, '2024-10-21 15:10:37', 120, NULL, NULL),
+(5, 2, 105, 3, '2024-10-21 15:10:37', 80, NULL, NULL),
+(6, 3, 106, 3, '2024-10-21 15:10:37', 60, NULL, NULL),
+(7, 3, 107, 3, '2024-10-21 15:10:37', 90, NULL, NULL),
+(8, 4, 108, 3, '2024-10-21 15:10:37', 150, NULL, NULL),
+(9, 4, 109, 3, '2024-10-21 15:10:37', 100, NULL, NULL),
+(10, 5, 110, 3, '2024-10-21 15:10:37', 200, NULL, NULL),
+(11, 5, 111, 3, '2024-10-21 15:10:37', 250, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -368,11 +380,11 @@ INSERT INTO `t_stok` (`stok_id`, `fk_supplier_id`, `fk_barang_id`, `fk_user_id`,
 
 CREATE TABLE `users` (
   `id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `remember_token` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -495,31 +507,31 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `m_barang`
 --
 ALTER TABLE `m_barang`
-  MODIFY `barang_id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=116;
+  MODIFY `barang_id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=128;
 
 --
 -- AUTO_INCREMENT for table `m_kategori`
 --
 ALTER TABLE `m_kategori`
-  MODIFY `kategori_id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `kategori_id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `m_level`
 --
 ALTER TABLE `m_level`
-  MODIFY `level_id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `level_id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `m_supplier`
 --
 ALTER TABLE `m_supplier`
-  MODIFY `supplier_id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `supplier_id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `m_user`
 --
 ALTER TABLE `m_user`
-  MODIFY `user_id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `user_id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -531,19 +543,19 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `t_penjualan`
 --
 ALTER TABLE `t_penjualan`
-  MODIFY `penjualan_id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `penjualan_id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `t_penjualan_detail`
 --
 ALTER TABLE `t_penjualan_detail`
-  MODIFY `detail_id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `detail_id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `t_stok`
 --
 ALTER TABLE `t_stok`
-  MODIFY `stok_id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `stok_id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `users`

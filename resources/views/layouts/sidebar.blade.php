@@ -95,19 +95,14 @@
     border-radius: 10px;
 }
 
-.sidebar .nav-pills .nav-link {
-    color: #ffffff;
-    background-color: #CD8587; /* Baby pink background for links */
-    border-radius: 8px;
-    margin-bottom: 5px;
-    transition: all 0.3s ease;
-}
+
 
 .sidebar .nav-pills .nav-link.active {
-    background-color: #C2E0C6; /* Sage green for active links */
+    background-color: #cb8587 !important; /* Force color change */
     color: #ffffff;
     font-weight: 600;
 }
+
 
 .sidebar .nav-header {
     color: #00000; /* Light pinkish text for headers */

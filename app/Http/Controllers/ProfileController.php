@@ -43,57 +43,31 @@ class ProfileController extends Controller
     }
 
     public function update_ajax(Request $request, $id)
-    {
-        // cek apakah request dari ajax
-        if ($request->ajax() || $request->wantsJson()) {
-            $rules = [
-                'level_id' => 'nullable|integer',
-                'username' => 'nullable|max:20|unique:m_user,username,' . $id . ',user_id',
-                'nama' => 'nullable|max:100',
-                'password' => 'nullable|min:6|max:20'
-            ];
-            // use Illuminate\Support\Facades\Validator;
-            $validator = Validator::make($request->all(), $rules);
-            if ($validator->fails()) {
-                return response()->json([
-                    'status' => false, // respon json, true: berhasil, false: gagal
-                    'message' => 'Validasi gagal.',
-                    'msgField' => $validator->errors() // menunjukkan field mana yang error
-                ]);
-            }
-            $check = UserModel::find($id);
-            if ($check) {
-                if (!$request->filled('level_id')) { // jika password tidak diisi, maka hapus dari request
-                    $request->request->remove('level_id');
-                }
-                if (!$request->filled('username')) { // jika password tidak diisi, maka hapus dari request
-                    $request->request->remove('username');
-                }
-                if (!$request->filled('nama')) { // jika password tidak diisi, maka hapus dari request
-                    $request->request->remove('nama');
-                }
-                if (!$request->filled('password')) { // jika password tidak diisi, maka hapus dari request
-                    $request->request->remove('password');
-                }
-                $check->update([
-                    'username'  => $request->username,
-                    'nama'      => $request->nama,
-                    'password'  => $request->password ? bcrypt($request->password) : UserModel::find($id)->password,
-                    'level_id'  => $request->level_id
-                ]);
-                return response()->json([
-                    'status' => true,
-                    'message' => 'Data berhasil diupdate'
-                ]);
-            } else {
-                return response()->json([
-                    'status' => false,
-                    'message' => 'Data tidak ditemukan'
-                ]);
-            }
-        }
-        return redirect('/');
+{
+    $validated = $request->validate([
+        'username' => 'required|string|max:255',
+        'nama' => 'required|string|max:255',
+        'level_id' => 'required|exists:level_models,level_id', // Tambahkan validasi untuk level_id
+    ]);
+    
+    $user = UserModel::find($id);
+    
+    $user->username = $request->input('username');
+    $user->nama = $request->input('nama');
+
+    // Update password jika diisi
+    if ($request->filled('password')) {
+        $user->password = bcrypt($request->input('password')); // Pastikan password di-hash
     }
+
+    $user->level_id = $request->input('level_id'); // Tambahkan untuk mengupdate level
+    $user->save();
+
+    return response()->json(['status' => true, 'message' => 'Profile updated successfully!']);
+}
+
+
+
 
     public function edit_foto(string $id)
     {

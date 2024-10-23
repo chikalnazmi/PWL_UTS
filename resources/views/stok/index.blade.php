@@ -98,7 +98,8 @@
     var tableStok;
     $(document).ready(function() {
         // Inisialisasi DataTables
-        tableStok = $('#table-stok').DataTable({
+        var dataStok;
+        dataStok = $('#table-stok').DataTable({
             processing: true,
             serverSide: true,
             ajax: {
@@ -106,9 +107,9 @@
                 dataType: "json",
                 type: "POST",
                 data: function(d) {
-                    d.filter_supplier = $('#supplier_id').val();
-                    d.filter_user = $('#user_id').val();
-                    d.filter_barang = $('#barang_id').val();
+                    d.supplier_id = $('#filter_supplier').val();
+                    d.user_id = $('#filter_user').val();
+                    d.barang_id = $('#filter_barang').val();
                 }
             },
             columns: [
